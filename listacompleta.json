@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Finn el humano",
+    "url": "./assets/fin.svg",
+    "uid": 0
+  },
+  {
+    "name": "Bmo",
+    "url": "./assets/bmo.svg",
+    "uid": 1
+  },
+  {
+    "name": "Jake",
+    "url": "./assets/jake.svg",
+    "uid": 2
+  },
+  {
+    "name": "Venom",
+    "url": "./assets/cabeza-de-venom.svg",
+    "uid": 3
+  },
+  {
+    "name": "Jason",
+    "url": "./assets/jason-voorhees.svg",
+    "uid": 4
+  },
+  {
+    "name": "Joker",
+    "url": "./assets/joker-dc.svg",
+    "uid": 5
+  },
+  {
+    "name": "Mounstro comegalletas",
+    "url": "./assets/monster-cookie.svg",
+    "uid": 6
+  },
+  {
+    "name": "Pennywise",
+    "url": "./assets/pennywise.svg",
+    "uid": 7
+  }
+]
