@@ -136,3 +136,15 @@ body {
   pointer-events: none;
   opacity: 0.3;
 }
+.txt_pause {
+  width: 50%;
+  height: 40px;
+  padding-top: 10px;
+  border-radius: 10px;
+  align-self: center;
+  text-align: center;
+  position: absolute;
+  top: 60%;
+  background-color: #0001;
+  color: var(--white);
+}

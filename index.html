@@ -21,15 +21,15 @@
     <div class="menu-container">
       <div>
         <p>Moves</p>
-        <p class="moves">0</p>
+        <p id="moves" class="moves">0</p>
       </div>
       <div>
         <p>time</p>
         <p class="timekeeper" id="timekeeper">00:00</p>
       </div>
-      <div>
+      <div id="buttonPlay">
         <p>Pause</p>
-        <div id="buttonPlay" class="button play">
+        <div class="play">
           <div id="pause" class="pause">
             <div class="linePause"></div>
             <div class="linePause"></div>
@@ -37,13 +37,18 @@
           <div id="play" class="triangle"></div>
         </div>   
       </div>
-      <div class="buttonRestart">
+      <div id="buttonRestart" class="buttonRestart">
         <p>Restart</p>
         <img src="./assets/icons/restart.svg" alt="">
       </div>
     </div>
-    <div id="cards-container" class="cards-container"></div>
+
+    <div id="cards-container" class="cards-container">
+    </div>
+
   </div>
+
+  <div id="txt_pause" class="txt_pause disabled-screen"><p>Game Paused</p></div>
 
   <script src="./index.js"></script>
 </body>
