@@ -12,9 +12,9 @@
 </head>
 <body>
 
-  <div id="home-container" class="home-container">
-    <button id="btn-empezar">Empezar</button>
-    <button>Ajustar dificultad</button>
+  <div id="home-screen" class="home-screen">
+    <button id="btn-empezar">Start</button>
+    <button>Set Difficulty</button>
   </div>
 
   <div id="game-container" class="game-container disabled-screen" >
@@ -48,7 +48,16 @@
 
   </div>
 
-  <div id="txt_pause" class="txt_pause disabled-screen"><p>Game Paused</p></div>
+  <div id="txt_pause" class="txt_pause disabled-screen">
+    <p>Game Paused</p>
+  </div>
+
+  <div id="finished-screen" class="finished-screen disabled-screen">
+    <h1>¡Felicidades!</h1>
+    <p>Time: <span id="txt-time-total">00:00</span></p>
+    <p>Moves: <span id="txt-moves-total">0</span></p>
+    <button id="btn-new-game">New Game</button>
+  </div>
 
   <script src="./index.js"></script>
 </body>

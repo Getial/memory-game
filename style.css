@@ -4,7 +4,8 @@
   --secondary-color: #202060;
   --aux-color-1: #602080;
   --aux-color-2: #B030B0;
-  --color-text: #000000;
+  --color-txt: #ffffff;
+  --color-text-btn: #000000;
   --sm: 14px;
   --md: 16px;
   --lg: 18px;
@@ -23,7 +24,8 @@ body {
   font-family: 'Caveat', cursive;
 }
 
-.home-container {
+.home-screen,
+.finished-screen {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -31,11 +33,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: var(--color-txt)
 }
-.home-container button {
+button {
   background-color: var(--white);
   opacity: 0.8;
-  color: var(--color-text);
+  color: var(--color-text-btn);
   font-family: 'Caveat', cursive;
   font-weight: bold;
   font-size: var(--lg);

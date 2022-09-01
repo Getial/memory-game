@@ -1,20 +1,25 @@
 //apuntadores HTML
-const home_container = document.getElementById("home-container");
+const home_screen = document.getElementById("home-screen");
 const game_container = document.getElementById("game-container");
 const cards_container = document.getElementById("cards-container");
+const finished_screen = document.getElementById("finished-screen");
 const timekeeper = document.getElementById("timekeeper");
 const btn_empezar = document.getElementById("btn-empezar");
 const btn_play = document.getElementById("buttonPlay");
 const btn_restart = document.getElementById("buttonRestart")
-const puase = document.getElementById("pause");
-const play = document.getElementById("play");
+const btn_new_game = document.getElementById("btn-new-game");
+const icon_pause = document.getElementById("pause");
+const icon_play = document.getElementById("play");
 const txtMoves = document.getElementById("moves");
 const txtPause = document.getElementById("txt_pause");
+const txtTimeTotal = document.getElementById("txt-time-total");
+const txtMovesTotal = document.getElementById("txt-moves-total");
 
 //listteners 
 btn_empezar.addEventListener("click", startGame); //boton de empezar partida
 btn_play.addEventListener("click", pauseGame) //boton para pausar partida
 btn_restart.addEventListener('click', restartGame) //boton para reiniciar la partida
+btn_new_game.addEventListener('click', newGame) //boton para empezar una nueva partida
 
 //generar secuencia
 function generarSecuencia () {
@@ -80,43 +85,6 @@ function dibujar(orderList) {
   cards_container.innerHTML = html;
 }
 
-function girar(position, uid){
-  const element = document.getElementById(position)
-  const img = element.children[0]
-  img.classList.remove("invisible")
-  element.classList.add("disabledbutton")
-
-  if(flag === 0) {
-    first_uid = uid;
-    first_img = img;
-    first_element = element
-  }
-  else if(flag === 1) {
-    if(first_uid === uid) {
-      first_img.classList.add("found-pair")
-      img.classList.add("found-pair")
-      couples--;
-      if(couples === 0){
-        clearInterval(t)
-      }
-    }
-    else { 
-      cards_container.classList.add('disabledbutton')
-      setTimeout(() => {
-        img.classList.add("invisible")
-        first_img.classList.add("invisible")
-        element.classList.remove("disabledbutton")
-        first_element.classList.remove("disabledbutton")
-        cards_container.classList.remove('disabledbutton')
-      }, 500);
-    }
-    flag = -1;
-    moves++;
-    txtMoves.textContent = moves;
-  }
-  flag ++;
-}
-
 function tick() {
   sec++;
   if(sec >= 60) {
@@ -137,10 +105,10 @@ function timer() {
 }
 
 function startGame() {
-  home_container.classList.add("disabled-screen");
+  home_screen.classList.add("disabled-screen");
   game_container.classList.remove("disabled-screen");
-  puase.style.display = "flex";
-  play.style.display = "none";
+  icon_pause.style.display = "flex";
+  icon_play.style.display = "none";
   txtPause.classList.add("disabled-screen");
   cards_container.classList.remove("disabled-screen");
   getImages()
@@ -151,14 +119,14 @@ function pauseGame() {
   if(runGame) {
     clearInterval(t);
     runGame = false;
-    puase.style.display = "none";
-    play.style.display = "flex";
+    icon_pause.style.display = "none";
+    icon_play.style.display = "flex";
     txtPause.classList.remove("disabled-screen");
     cards_container.classList.add("disabled-screen");
   } else {
     timer()
-    puase.style.display = "flex";
-    play.style.display = "none";
+    icon_pause.style.display = "flex";
+    icon_play.style.display = "none";
     txtPause.classList.add("disabled-screen");
     cards_container.classList.remove("disabled-screen");
   }
@@ -172,4 +140,52 @@ function restartGame() {
   moves = 0;
   txtMoves.textContent = "0"
   startGame();
+}
+
+function newGame() {
+  game_container.classList.remove("disabled-screen");
+  finished_screen.classList.add("disabled-screen");
+  restartGame();
+}
+
+function girar(position, uid){
+  const element = document.getElementById(position)
+  const img = element.children[0]
+  img.classList.remove("invisible")
+  element.classList.add("disabledbutton")
+
+  if(flag === 0) {
+    first_uid = uid;
+    first_img = img;
+    first_element = element
+  }
+  else if(flag === 1) {
+    if(first_uid === uid) {
+      first_img.classList.add("found-pair")
+      img.classList.add("found-pair")
+      couples--;
+      if(couples === 0){
+        clearInterval(t);
+        game_container.classList.add("disabled-screen");
+        txtTimeTotal.textContent = (min > 9 ? min : "0" + min)
+                   + ":" + (sec > 9 ? sec : "0" + sec)
+        txtMovesTotal.textContent = moves;
+        finished_screen.classList.remove("disabled-screen");
+      }
+    }
+    else { 
+      cards_container.classList.add('disabledbutton')
+      setTimeout(() => {
+        img.classList.add("invisible")
+        first_img.classList.add("invisible")
+        element.classList.remove("disabledbutton")
+        first_element.classList.remove("disabledbutton")
+        cards_container.classList.remove('disabledbutton')
+      }, 500);
+    }
+    flag = -1;
+    moves++;
+    txtMoves.textContent = moves;
+  }
+  flag ++;
 }
