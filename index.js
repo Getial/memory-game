@@ -1,35 +1,35 @@
 //apuntadores HTML
 const home_screen = document.getElementById("home-screen");
+const btns_dificulty_container = document.getElementById("btns-dificulty-container");
 const game_container = document.getElementById("game-container");
 const cards_container = document.getElementById("cards-container");
 const finished_screen = document.getElementById("finished-screen");
 const timekeeper = document.getElementById("timekeeper");
-const btn_empezar = document.getElementById("btn-empezar");
+const btn_start = document.getElementById("btn-empezar");
 const btn_play = document.getElementById("buttonPlay");
-const btn_restart = document.getElementById("buttonRestart")
+const btn_restart = document.getElementById("buttonRestart");
 const btn_new_game = document.getElementById("btn-new-game");
+const btn_set_dificulty = document.getElementById("btn-set-dificulty");
+const btn_dificulty_easy = document.getElementById("btn-dificulty-easy");
+const btn_dificulty_normal = document.getElementById("btn-dificulty-normal");
+const btn_dificulty_hard = document.getElementById("btn-dificulty-hard");
 const icon_pause = document.getElementById("pause");
 const icon_play = document.getElementById("play");
 const txtMoves = document.getElementById("moves");
 const txtPause = document.getElementById("txt_pause");
 const txtTimeTotal = document.getElementById("txt-time-total");
 const txtMovesTotal = document.getElementById("txt-moves-total");
+const txt_dificulty = document.getElementById("txt-dificulty");
 
 //listteners 
-btn_empezar.addEventListener("click", startGame); //boton de empezar partida
+btn_start.addEventListener("click", startGame); //boton de empezar partida
+btn_set_dificulty.addEventListener("click", showSetDificulty) // boton para mostrar el menu de dificultad
+btn_dificulty_easy.addEventListener("click", setDificultyEasy) // boton ajustar dificultad facil
+btn_dificulty_normal.addEventListener("click", setDificultyNormal) // boton ajustar dificultad normal
+btn_dificulty_hard.addEventListener("click", setDificultyHard) // boton ajustar dificultad dificil
 btn_play.addEventListener("click", pauseGame) //boton para pausar partida
 btn_restart.addEventListener('click', restartGame) //boton para reiniciar la partida
 btn_new_game.addEventListener('click', newGame) //boton para empezar una nueva partida
-
-//generar secuencia
-function generarSecuencia () {
-  const secuencia = [];
-  for (let index = 0; index < 16; index++) {
-    secuencia.push(index);
-  }
-  const unorderedList = secuencia.sort(function() {return Math.random() - 0.5})
-  return unorderedList
-}
 
 //variables para hacer la comparacion
 var flag = 0;
@@ -46,6 +46,17 @@ var t;
 var couples = 0;
 var runGame = false;
 var moves = 0;
+var dificulty = "easy"
+
+//generar secuencia
+function generarSecuencia () {
+  const secuencia = [];
+  for (let index = 0; index < 16; index++) {
+    secuencia.push(index);
+  }
+  const unorderedList = secuencia.sort(function() {return Math.random() - 0.5})
+  return unorderedList
+}
 
 async function getImages() {
   const unorderedList = generarSecuencia();
@@ -188,4 +199,26 @@ function girar(position, uid){
     txtMoves.textContent = moves;
   }
   flag ++;
+}
+
+function showSetDificulty() {
+  home_screen.classList.add("disabled-screen");
+  btns_dificulty_container.classList.remove("disabled-screen");
+}
+
+function setDificulty(dif) {
+  home_screen.classList.remove("disabled-screen");
+  btns_dificulty_container.classList.add("disabled-screen");
+  dificulty = dif;
+  txt_dificulty.textContent = dificulty
+}
+
+function setDificultyEasy(){
+  setDificulty("easy")
+}
+function setDificultyNormal(){
+  setDificulty("normal")
+}
+function setDificultyHard(){
+  setDificulty("hard")
 }

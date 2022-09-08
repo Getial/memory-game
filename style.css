@@ -23,7 +23,11 @@ body {
   align-items: center;
   font-family: 'Caveat', cursive;
 }
+.blur{
+  filter: blur(5px)
+}
 
+.btns-dificulty-container,
 .home-screen,
 .finished-screen {
   position: absolute;
@@ -34,6 +38,9 @@ body {
   justify-content: center;
   align-items: center;
   color: var(--color-txt)
+}
+.home-screen span {
+  color: var(--aux-color-1);
 }
 button {
   background-color: var(--white);
@@ -48,6 +55,11 @@ button {
   height: 50px;
   margin-bottom: 20px;
   margin-top: 20px;
+}
+
+.btns-dificulty-container {
+  position: absolute;
+  filter: blur(0px)
 }
 
 .game-container{
