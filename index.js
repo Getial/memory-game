@@ -19,7 +19,8 @@ const txtMoves = document.getElementById("moves");
 const txtPause = document.getElementById("txt_pause");
 const txtTimeTotal = document.getElementById("txt-time-total");
 const txtMovesTotal = document.getElementById("txt-moves-total");
-const txt_dificulty = document.getElementById("txt-dificulty");
+const txt_dificulty_home = document.getElementById("txt-dificulty-home");
+const txt_dificulty_finished = document.getElementById("txt-dificulty-finished");
 
 //listteners 
 btn_start.addEventListener("click", startGame); //boton de empezar partida
@@ -184,6 +185,7 @@ function girar(position, uid){
         txtTimeTotal.textContent = (min > 9 ? min : "0" + min)
                    + ":" + (sec > 9 ? sec : "0" + sec)
         txtMovesTotal.textContent = moves;
+        txt_dificulty_finished.textContent = dificulty;
         finished_screen.classList.remove("disabled-screen");
       }
     }
@@ -238,7 +240,7 @@ function setDificulty(dif) {
   home_screen.classList.remove("disabled-screen");
   btns_dificulty_container.classList.add("disabled-screen");
   dificulty = dif;
-  txt_dificulty.textContent = dificulty
+  txt_dificulty_home.textContent = dificulty
 }
 
 function setDificultyEasy(){
