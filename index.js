@@ -47,6 +47,7 @@ var couples = 0;
 var runGame = false;
 var moves = 0;
 var dificulty = "easy"
+var list;
 
 //generar secuencia
 function generarSecuencia () {
@@ -80,7 +81,8 @@ async function getImages() {
   orderList.sort((a,b) => {
     return a.position - b.position
   })
-  dibujar(orderList)
+  // dibujar(orderList)
+  return orderList
 }
 function dibujar(orderList) {
   cards_container.innerHTML = '';
@@ -115,14 +117,15 @@ function timer() {
   runGame = true;
 }
 
-function startGame() {
+async function startGame() {
   home_screen.classList.add("disabled-screen");
   game_container.classList.remove("disabled-screen");
   icon_pause.style.display = "flex";
   icon_play.style.display = "none";
   txtPause.classList.add("disabled-screen");
   cards_container.classList.remove("disabled-screen");
-  getImages()
+  list = await getImages()
+  dibujar(list)
   timer()
 }
 
@@ -171,11 +174,11 @@ function girar(position, uid){
     first_element = element
   }
   else if(flag === 1) {
-    if(first_uid === uid) {
+    if(first_uid === uid) { // si la carta era el par
       first_img.classList.add("found-pair")
       img.classList.add("found-pair")
       couples--;
-      if(couples === 0){
+      if(couples === 0){  //si gano y/o termino el juego
         clearInterval(t);
         game_container.classList.add("disabled-screen");
         txtTimeTotal.textContent = (min > 9 ? min : "0" + min)
@@ -184,15 +187,40 @@ function girar(position, uid){
         finished_screen.classList.remove("disabled-screen");
       }
     }
-    else { 
+    else {  // si la carta no era el par
+
       cards_container.classList.add('disabledbutton')
-      setTimeout(() => {
-        img.classList.add("invisible")
-        first_img.classList.add("invisible")
-        element.classList.remove("disabledbutton")
-        first_element.classList.remove("disabledbutton")
-        cards_container.classList.remove('disabledbutton')
-      }, 500);
+
+      switch (dificulty) {
+        case "easy":
+          setTimeout(() => {
+            img.classList.add("invisible")
+            first_img.classList.add("invisible")
+            element.classList.remove("disabledbutton")
+            first_element.classList.remove("disabledbutton")
+            cards_container.classList.remove('disabledbutton')
+          }, 500);
+          break;
+
+        case "normal":
+          couples = list.length/2
+          setTimeout(() => {
+            element.classList.remove("disabledbutton")
+            first_element.classList.remove("disabledbutton")
+            cards_container.classList.remove('disabledbutton')
+            dibujar(list)
+          }, 500);
+          break;
+
+        case "hard":
+          couples = list.length/2
+          element.classList.remove("disabledbutton")
+          first_element.classList.remove("disabledbutton")
+          cards_container.classList.remove('disabledbutton')
+          dibujar(list)
+          break;
+      }
+      
     }
     flag = -1;
     moves++;
