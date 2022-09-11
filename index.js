@@ -126,7 +126,7 @@ async function startGame() {
   game_container.classList.remove("disabled-screen");
   icon_pause.style.display = "flex";
   icon_play.style.display = "none";
-  // btn_continue.classList.add("disabled-screen");
+  btn_continue.classList.add("disabled-screen");
   cards_container.classList.remove("disabled-screen");
   list = await getImages()
   dibujar(list)
