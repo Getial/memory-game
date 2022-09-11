@@ -8,15 +8,16 @@ const timekeeper = document.getElementById("timekeeper");
 const btn_start = document.getElementById("btn-empezar");
 const btn_play = document.getElementById("buttonPlay");
 const btn_restart = document.getElementById("buttonRestart");
+const btn_gth = document.getElementById("buttonGoToHome");
 const btn_new_game = document.getElementById("btn-new-game");
 const btn_set_dificulty = document.getElementById("btn-set-dificulty");
 const btn_dificulty_easy = document.getElementById("btn-dificulty-easy");
 const btn_dificulty_normal = document.getElementById("btn-dificulty-normal");
 const btn_dificulty_hard = document.getElementById("btn-dificulty-hard");
+const btn_continue = document.getElementById("btn-continue");
 const icon_pause = document.getElementById("pause");
 const icon_play = document.getElementById("play");
 const txtMoves = document.getElementById("moves");
-const txtPause = document.getElementById("txt_pause");
 const txtTimeTotal = document.getElementById("txt-time-total");
 const txtMovesTotal = document.getElementById("txt-moves-total");
 const txt_dificulty_home = document.getElementById("txt-dificulty-home");
@@ -30,7 +31,9 @@ btn_dificulty_normal.addEventListener("click", setDificultyNormal) // boton ajus
 btn_dificulty_hard.addEventListener("click", setDificultyHard) // boton ajustar dificultad dificil
 btn_play.addEventListener("click", pauseGame) //boton para pausar partida
 btn_restart.addEventListener('click', restartGame) //boton para reiniciar la partida
+btn_gth.addEventListener('click', goToHome); // ir al home screen
 btn_new_game.addEventListener('click', newGame) //boton para empezar una nueva partida
+btn_continue.addEventListener('click', pauseGame)
 
 //variables para hacer la comparacion
 var flag = 0;
@@ -123,7 +126,7 @@ async function startGame() {
   game_container.classList.remove("disabled-screen");
   icon_pause.style.display = "flex";
   icon_play.style.display = "none";
-  txtPause.classList.add("disabled-screen");
+  // btn_continue.classList.add("disabled-screen");
   cards_container.classList.remove("disabled-screen");
   list = await getImages()
   dibujar(list)
@@ -136,13 +139,13 @@ function pauseGame() {
     runGame = false;
     icon_pause.style.display = "none";
     icon_play.style.display = "flex";
-    txtPause.classList.remove("disabled-screen");
+    btn_continue.classList.remove("disabled-screen");
     cards_container.classList.add("disabled-screen");
   } else {
     timer()
     icon_pause.style.display = "flex";
     icon_play.style.display = "none";
-    txtPause.classList.add("disabled-screen");
+    btn_continue.classList.add("disabled-screen");
     cards_container.classList.remove("disabled-screen");
   }
 }
@@ -251,4 +254,8 @@ function setDificultyNormal(){
 }
 function setDificultyHard(){
   setDificulty("hard")
+}
+
+function goToHome() {
+  alert("aun me falta programar este boton")
 }

@@ -42,6 +42,9 @@ body {
 .home-screen span {
   color: var(--aux-color-1);
 }
+.btn-continue-last {
+  display: none;
+}
 button {
   background-color: var(--white);
   opacity: 0.8;
@@ -118,6 +121,7 @@ button {
   width: 30%;
   justify-content: space-around;
 }
+.buttonGoToHome img,
 .buttonRestart img {
   width: 25px;
   height: 25px;
@@ -151,15 +155,8 @@ button {
   pointer-events: none;
   opacity: 0.3;
 }
-.txt_pause {
-  width: 50%;
-  height: 40px;
-  padding-top: 10px;
-  border-radius: 10px;
-  align-self: center;
-  text-align: center;
+.btn-continue {
   position: absolute;
   top: 60%;
-  background-color: #0001;
-  color: var(--white);
+  color: var(--color-text-btn);
 }
