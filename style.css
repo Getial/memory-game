@@ -29,6 +29,7 @@ body {
 
 .btns-dificulty-container,
 .home-screen,
+.alert-screen,
 .finished-screen {
   position: absolute;
   width: 100%;

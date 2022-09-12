@@ -1,11 +1,14 @@
 //apuntadores HTML
 const home_screen = document.getElementById("home-screen");
 const btns_dificulty_container = document.getElementById("btns-dificulty-container");
+const alert_screen = document.getElementById("alert-screen");
 const game_container = document.getElementById("game-container");
 const cards_container = document.getElementById("cards-container");
 const finished_screen = document.getElementById("finished-screen");
 const timekeeper = document.getElementById("timekeeper");
 const btn_start = document.getElementById("btn-empezar");
+const btn_yes_ng = document.getElementById("btn-yes-ng");
+const btn_no_ng = document.getElementById("btn-no-ng");
 const btn_play = document.getElementById("buttonPlay");
 const btn_restart = document.getElementById("buttonRestart");
 const btn_gth = document.getElementById("buttonGoToHome");
@@ -15,6 +18,7 @@ const btn_dificulty_easy = document.getElementById("btn-dificulty-easy");
 const btn_dificulty_normal = document.getElementById("btn-dificulty-normal");
 const btn_dificulty_hard = document.getElementById("btn-dificulty-hard");
 const btn_continue = document.getElementById("btn-continue");
+const btn_continue_last = document.getElementById("btn-continue-last");
 const icon_pause = document.getElementById("pause");
 const icon_play = document.getElementById("play");
 const txtMoves = document.getElementById("moves");
@@ -33,7 +37,10 @@ btn_play.addEventListener("click", pauseGame) //boton para pausar partida
 btn_restart.addEventListener('click', restartGame) //boton para reiniciar la partida
 btn_gth.addEventListener('click', goToHome); // ir al home screen
 btn_new_game.addEventListener('click', newGame) //boton para empezar una nueva partida
-btn_continue.addEventListener('click', pauseGame)
+btn_continue.addEventListener('click', pauseGame) // continuar juego
+btn_continue_last.addEventListener('click', continueLastGame) // continuar juego en curso
+btn_yes_ng.addEventListener('click', restartGame) // cerrar ultimo juego e iniciar uno nuevo
+btn_no_ng.addEventListener('click', closeAlertScreen) // no iniciar nueva partida
 
 //variables para hacer la comparacion
 var flag = 0;
@@ -88,6 +95,7 @@ async function getImages() {
   // dibujar(orderList)
   return orderList
 }
+
 function dibujar(orderList) {
   cards_container.innerHTML = '';
   let html = '';
@@ -122,15 +130,21 @@ function timer() {
 }
 
 async function startGame() {
-  home_screen.classList.add("disabled-screen");
-  game_container.classList.remove("disabled-screen");
-  icon_pause.style.display = "flex";
-  icon_play.style.display = "none";
-  btn_continue.classList.add("disabled-screen");
-  cards_container.classList.remove("disabled-screen");
-  list = await getImages()
-  dibujar(list)
-  timer()
+  if(runGame) {
+    alert_screen.classList.remove("disabled-screen");
+    home_screen.classList.add("disabled-screen");
+  } else {
+    home_screen.classList.add("disabled-screen");
+    alert_screen.classList.add("disabled-screen");
+    game_container.classList.remove("disabled-screen");
+    icon_pause.style.display = "flex";
+    icon_play.style.display = "none";
+    // btn_continue.classList.add("disabled-screen");
+    // cards_container.classList.remove("disabled-screen");
+    list = await getImages()
+    dibujar(list)
+    timer()
+  }
 }
 
 function pauseGame() {
@@ -157,6 +171,7 @@ function restartGame() {
   min = 0;
   moves = 0;
   txtMoves.textContent = "0"
+  runGame = false;
   startGame();
 }
 
@@ -257,5 +272,21 @@ function setDificultyHard(){
 }
 
 function goToHome() {
-  alert("aun me falta programar este boton")
+  btn_continue_last.style.display = "initial";
+  clearInterval(t);
+  btn_continue.classList.add("disabled-screen");
+  game_container.classList.add("disabled-screen");
+  home_screen.classList.remove("disabled-screen");
+}
+
+function continueLastGame() {
+  game_container.classList.remove("disabled-screen");
+  home_screen.classList.add("disabled-screen");
+  runGame = false;
+  pauseGame();
+}
+
+function closeAlertScreen() {
+  alert_screen.classList.add("disabled-screen");
+  home_screen.classList.remove("disabled-screen");
 }
