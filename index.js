@@ -124,8 +124,6 @@ function add() {
   tick();
   timekeeper.textContent = (min > 9 ? min : "0" + min)
                    + ":" + (sec > 9 ? sec : "0" + sec)
-  console.log((min > 9 ? min : "0" + min)
-  + ":" + (sec > 9 ? sec : "0" + sec));
   timer();
 }
 function timer() {
