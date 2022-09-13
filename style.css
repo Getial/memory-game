@@ -61,6 +61,18 @@ button {
   margin-top: 20px;
 }
 
+.close-set-dificulty {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 0;
+  position: absolute;
+  left: calc(50% - 120px);
+  top: calc(50% - 220px);
+  background: transparent;
+  color: white;
+}
+
 .btns-dificulty-container {
   position: absolute;
   filter: blur(0px)

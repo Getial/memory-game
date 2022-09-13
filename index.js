@@ -14,6 +14,7 @@ const btn_restart = document.getElementById("buttonRestart");
 const btn_gth = document.getElementById("buttonGoToHome");
 const btn_new_game = document.getElementById("btn-new-game");
 const btn_set_dificulty = document.getElementById("btn-set-dificulty");
+const btn_close_set = document.getElementById("close-set-dificulty");
 const btn_dificulty_easy = document.getElementById("btn-dificulty-easy");
 const btn_dificulty_normal = document.getElementById("btn-dificulty-normal");
 const btn_dificulty_hard = document.getElementById("btn-dificulty-hard");
@@ -30,6 +31,7 @@ const txt_dificulty_finished = document.getElementById("txt-dificulty-finished")
 //listteners 
 btn_start.addEventListener("click", startGame); //boton de empezar partida
 btn_set_dificulty.addEventListener("click", showSetDificulty) // boton para mostrar el menu de dificultad
+btn_close_set.addEventListener('click', closeSetDificulty)
 btn_dificulty_easy.addEventListener("click", setDificultyEasy) // boton ajustar dificultad facil
 btn_dificulty_normal.addEventListener("click", setDificultyNormal) // boton ajustar dificultad normal
 btn_dificulty_hard.addEventListener("click", setDificultyHard) // boton ajustar dificultad dificil
@@ -122,6 +124,8 @@ function add() {
   tick();
   timekeeper.textContent = (min > 9 ? min : "0" + min)
                    + ":" + (sec > 9 ? sec : "0" + sec)
+  console.log((min > 9 ? min : "0" + min)
+  + ":" + (sec > 9 ? sec : "0" + sec));
   timer();
 }
 function timer() {
@@ -253,8 +257,20 @@ function showSetDificulty() {
   home_screen.classList.add("disabled-screen");
   btns_dificulty_container.classList.remove("disabled-screen");
 }
+function closeSetDificulty() {
+  home_screen.classList.remove("disabled-screen");
+  btns_dificulty_container.classList.add("disabled-screen");
+}
 
 function setDificulty(dif) {
+  // if(runGame) {
+  //   alert("partida en juego")
+  // } else {
+  //   home_screen.classList.remove("disabled-screen");
+  //   btns_dificulty_container.classList.add("disabled-screen");
+  //   dificulty = dif;
+  //   txt_dificulty_home.textContent = dificulty
+  // }
   home_screen.classList.remove("disabled-screen");
   btns_dificulty_container.classList.add("disabled-screen");
   dificulty = dif;
@@ -290,3 +306,12 @@ function closeAlertScreen() {
   alert_screen.classList.add("disabled-screen");
   home_screen.classList.remove("disabled-screen");
 }
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === 'visible' && runGame && !(game_container.classList.contains("disabled-screen"))) {
+    timer();
+  } 
+  else {
+    clearInterval(t);
+  }
+});
