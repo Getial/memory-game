@@ -70,7 +70,13 @@ button {
   left: calc(50% - 120px);
   top: calc(50% - 220px);
   background: transparent;
-  color: white;
+  display: flex;
+  align-items: center;
+}
+.close-set-dificulty svg {
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 4px;
 }
 
 .btns-dificulty-container {
