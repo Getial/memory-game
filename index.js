@@ -1,14 +1,17 @@
 //apuntadores HTML
 const home_screen = document.getElementById("home-screen");
 const btns_dificulty_container = document.getElementById("btns-dificulty-container");
-const alert_screen = document.getElementById("alert-screen");
+const alert_screen_ng = document.getElementById("alert-screen-ng");
+const alert_screen_dificulty = document.getElementById("alert-screen-dificulty");
 const game_container = document.getElementById("game-container");
 const cards_container = document.getElementById("cards-container");
 const finished_screen = document.getElementById("finished-screen");
 const timekeeper = document.getElementById("timekeeper");
 const btn_start = document.getElementById("btn-empezar");
 const btn_yes_ng = document.getElementById("btn-yes-ng");
-const btn_no_ng = document.getElementById("btn-no-ng");
+const btn_no_ng = document.getElementById("btn-no-dificulty");
+const btn_yes_dificulty = document.getElementById("btn-yes-dificulty");
+const btn_no_dificulty = document.getElementById("btn-no-ng");
 const btn_play = document.getElementById("buttonPlay");
 const btn_restart = document.getElementById("buttonRestart");
 const btn_gth = document.getElementById("buttonGoToHome");
@@ -43,6 +46,8 @@ btn_continue.addEventListener('click', pauseGame) // continuar juego
 btn_continue_last.addEventListener('click', continueLastGame) // continuar juego en curso
 btn_yes_ng.addEventListener('click', restartGame) // cerrar ultimo juego e iniciar uno nuevo
 btn_no_ng.addEventListener('click', closeAlertScreen) // no iniciar nueva partida
+btn_yes_dificulty.addEventListener('click', changeDificulty) // cerrar ultimo juego e iniciar uno nuevo
+btn_no_dificulty.addEventListener('click', closeAlertScreen) // no iniciar nueva partida
 
 //variables para hacer la comparacion
 var flag = 0;
@@ -60,6 +65,7 @@ var couples = 0;
 var runGame = false;
 var moves = 0;
 var dificulty = "easy"
+var poss_dificulty = ""; 
 var list;
 
 //generar secuencia
@@ -133,11 +139,11 @@ function timer() {
 
 async function startGame() {
   if(runGame) {
-    alert_screen.classList.remove("disabled-screen");
+    alert_screen_ng.classList.remove("disabled-screen");
     home_screen.classList.add("disabled-screen");
   } else {
     home_screen.classList.add("disabled-screen");
-    alert_screen.classList.add("disabled-screen");
+    alert_screen_ng.classList.add("disabled-screen");
     game_container.classList.remove("disabled-screen");
     icon_pause.style.display = "flex";
     icon_play.style.display = "none";
@@ -168,10 +174,10 @@ function pauseGame() {
 
 function restartGame() {
   clearInterval(t)
-  timekeeper.textContent = "00:00"
   sec = 0;
   min = 0;
   moves = 0;
+  timekeeper.textContent = "00:00"
   txtMoves.textContent = "0"
   runGame = false;
   startGame();
@@ -261,20 +267,30 @@ function closeSetDificulty() {
 }
 
 function setDificulty(dif) {
-  // if(runGame) {
-  //   alert("partida en juego")
-  // } else {
-  //   home_screen.classList.remove("disabled-screen");
-  //   btns_dificulty_container.classList.add("disabled-screen");
-  //   dificulty = dif;
-  //   txt_dificulty_home.textContent = dificulty
-  // }
+  if(runGame) {
+    showAlertSetDificulty();
+    poss_dificulty = dif;
+  } else {
+    home_screen.classList.remove("disabled-screen");
+    btns_dificulty_container.classList.add("disabled-screen");
+    dificulty = dif;
+    txt_dificulty_home.textContent = dificulty
+  }
+}
+function changeDificulty() {
+  dificulty = poss_dificulty;
+  runGame = false;
+  moves = 0;
+  sec = 0;
+  min = 0;
+  timekeeper.textContent = "00:00"
+  txtMoves.textContent = "0"
   home_screen.classList.remove("disabled-screen");
   btns_dificulty_container.classList.add("disabled-screen");
-  dificulty = dif;
-  txt_dificulty_home.textContent = dificulty
+  alert_screen_dificulty.classList.add("disabled-screen");
+  btn_continue_last.style.display = "none";
+  txt_dificulty_home.textContent = dificulty;
 }
-
 function setDificultyEasy(){
   setDificulty("easy")
 }
@@ -285,7 +301,13 @@ function setDificultyHard(){
   setDificulty("hard")
 }
 
+function showAlertSetDificulty() {
+  alert_screen_dificulty.classList.remove("disabled-screen");
+  btns_dificulty_container.classList.add("disabled-screen")
+}
+
 function goToHome() {
+  runGame = true;
   btn_continue_last.style.display = "initial";
   clearInterval(t);
   btn_continue.classList.add("disabled-screen");
@@ -301,7 +323,8 @@ function continueLastGame() {
 }
 
 function closeAlertScreen() {
-  alert_screen.classList.add("disabled-screen");
+  alert_screen_ng.classList.add("disabled-screen");
+  alert_screen_dificulty.classList.add("disabled-screen");
   home_screen.classList.remove("disabled-screen");
 }
 
