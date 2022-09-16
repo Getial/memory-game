@@ -16,6 +16,7 @@ const btn_play = document.getElementById("buttonPlay");
 const btn_restart = document.getElementById("buttonRestart");
 const btn_gth = document.getElementById("buttonGoToHome");
 const btn_new_game = document.getElementById("btn-new-game");
+const btn_gth_fs = document.getElementById("btn-gth-fs");
 const btn_set_dificulty = document.getElementById("btn-set-dificulty");
 const btn_close_set = document.getElementById("close-set-dificulty");
 const btn_dificulty_easy = document.getElementById("btn-dificulty-easy");
@@ -41,6 +42,7 @@ btn_dificulty_hard.addEventListener("click", setDificultyHard) // boton ajustar 
 btn_play.addEventListener("click", pauseGame) //boton para pausar partida
 btn_restart.addEventListener('click', restartGame) //boton para reiniciar la partida
 btn_gth.addEventListener('click', goToHome); // ir al home screen
+btn_gth_fs.addEventListener('click', goToHome_fs) // ir al home despues de finalizar una partida
 btn_new_game.addEventListener('click', newGame) //boton para empezar una nueva partida
 btn_continue.addEventListener('click', pauseGame) // continuar juego
 btn_continue_last.addEventListener('click', continueLastGame) // continuar juego en curso
@@ -173,6 +175,11 @@ function pauseGame() {
 }
 
 function restartGame() {
+  resetValues();
+  startGame();
+}
+
+function resetValues() {
   clearInterval(t)
   sec = 0;
   min = 0;
@@ -180,7 +187,6 @@ function restartGame() {
   timekeeper.textContent = "00:00"
   txtMoves.textContent = "0"
   runGame = false;
-  startGame();
 }
 
 function newGame() {
@@ -278,13 +284,8 @@ function setDificulty(dif) {
   }
 }
 function changeDificulty() {
+  resetValues();
   dificulty = poss_dificulty;
-  runGame = false;
-  moves = 0;
-  sec = 0;
-  min = 0;
-  timekeeper.textContent = "00:00"
-  txtMoves.textContent = "0"
   home_screen.classList.remove("disabled-screen");
   btns_dificulty_container.classList.add("disabled-screen");
   alert_screen_dificulty.classList.add("disabled-screen");
@@ -313,6 +314,12 @@ function goToHome() {
   btn_continue.classList.add("disabled-screen");
   game_container.classList.add("disabled-screen");
   home_screen.classList.remove("disabled-screen");
+}
+
+function goToHome_fs() {
+  resetValues();
+  home_screen.classList.remove("disabled-screen");
+  finished_screen.classList.add("disabled-screen");
 }
 
 function continueLastGame() {

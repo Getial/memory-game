@@ -76,7 +76,8 @@ button {
 .close-set-dificulty svg {
   fill: none;
   stroke: var(--white);
-  stroke-width: 4px;
+  stroke-width: 3px;
+  margin-left: 3px;
 }
 
 .btns-dificulty-container {
@@ -159,10 +160,11 @@ button {
 }
 .cards-container div img {
   width: 70px;
+  transition: all 0.3s linear;
+  backface-visibility: hidden;
 }
 .invisible {
-  backface-visibility: hidden;
-  transform: rotateX(180deg);
+  transform: rotateY(180deg);
 }
 .disabled-screen {
   display: none;
@@ -178,4 +180,7 @@ button {
   position: absolute;
   top: 60%;
   color: var(--color-text-btn);
+}
+.finished-screen p {
+  font-size: var(--xl);
 }
