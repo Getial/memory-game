@@ -207,6 +207,7 @@ function girar(position, uid){
     first_element = element
   }
   else if(flag === 1) {
+    moves++;
     if(first_uid === uid) { // si la carta era el par
       first_img.classList.add("found-pair")
       img.classList.add("found-pair")
@@ -257,7 +258,6 @@ function girar(position, uid){
       
     }
     flag = -1;
-    moves++;
     txtMoves.textContent = moves;
   }
   flag ++;
